@@ -101,14 +101,14 @@ const Layout = ({ heading = "gunnar ingi", location, children }) => {
     .map(page => page.replace(/\//g, ""))
 
   return (
-    <ThemeProvider theme={{ mode: "dark" }}>
+    <ThemeProvider theme={{ mode: "light" }}>
       <GlobalStyle />
       <Grid>
         <Header>
           {location ? (
             <>
               <Navigation pages={pages} />
-              <h1>{location.pathname.replace("/", "")}</h1>
+              <h1>{heading || location.pathname.replace("/", "")}</h1>
             </>
           ) : (
             <Heading>{heading}</Heading>
