@@ -1,13 +1,11 @@
 import { Link as GatsbyLink } from "gatsby"
 import styled, { css } from "styled-components"
-import { colors, gutter } from "../style_constants"
+import { colors } from "../style_constants"
 
 const style = css`
   text-decoration: none;
   font-weight: 700;
   color: inherit;
-  /* ${props =>
-    props.theme.mode === "light" ? colors.darkBlue : colors.brightBlue}; */
 
   position: relative;
   z-index: 1;

@@ -2,14 +2,9 @@ import React from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import styled, { ThemeConsumer } from "styled-components"
-import { colors } from "../style_constants"
+import styled from "styled-components"
 import { Link } from "../components/Link"
 
-const Header = styled.h1`
-  font-size: 4rem;
-  cursor: pointer;
-`
 const LinkList = styled.ul`
   list-style: none;
   font-size: 2rem;

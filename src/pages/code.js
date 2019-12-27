@@ -35,7 +35,9 @@ const projects = [
   },
 ]
 
-const Cards = styled.div`
+const Cards = styled.ul`
+  list-style: none;
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: ${gutter};
@@ -49,7 +51,7 @@ const Cards = styled.div`
   }
 `
 
-const CardContainer = styled.div`
+const CardContainer = styled.li`
   background: white;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -93,10 +95,10 @@ const CardHeading = styled.h2`
 `
 
 const CardContent = ({ title, description }) => (
-  <div>
+  <section>
     <CardHeading>{title}</CardHeading>
     <p>{description}</p>
-  </div>
+  </section>
 )
 
 const Card = ({ content }) => (
@@ -115,9 +117,6 @@ const Code = ({ location, match }) => (
     <SEO title="Code" />
     <Cards>
       {projects.map(project => (
-        <Card content={project} />
-      ))}
-      {projects.slice(1).map(project => (
         <Card content={project} />
       ))}
     </Cards>

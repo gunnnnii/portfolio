@@ -3,7 +3,6 @@ import { FaGithub, FaLinkedin } from "react-icons/fa"
 import { MdMessage } from "react-icons/md"
 import styled from "styled-components"
 import { IconContext } from "react-icons"
-import { gutter } from "../style_constants"
 import { LinkExt } from "./Link"
 import { HorizontalList } from "./horizontalList"
 
@@ -11,11 +10,6 @@ const StyledFooter = styled.footer``
 
 const IconList = styled(HorizontalList)`
   margin-top: 2rem;
-`
-
-const $IconLink = styled(LinkExt)`
-  &:after {
-  }
 `
 
 export const Footer = () => (

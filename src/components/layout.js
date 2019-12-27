@@ -12,7 +12,6 @@ import { useStaticQuery, graphql } from "gatsby"
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components"
 import { colors, gutter } from "../style_constants"
 import { Footer } from "./footer"
-import { Link } from "./Link"
 import { Header, Navigation } from "./header"
 
 const GlobalStyle = createGlobalStyle`
@@ -68,30 +67,13 @@ const Grid = styled.div`
   max-width: 1000px;
   margin: 0 auto;
 `
-
-// const Header = ({ children }) => <header>{children}</header>
-
-// const Navigation = ({ pages }) => {
-//   return (
-//     <nav>
-//       <ul>
-//       <Link to="/">Home</Link>
-//       {pages.map(page => (
-//         <Link to={`/${page}`}>{page}</Link>
-//       ))}
-//       </ul>
-//     </nav>
-//   )
-// }
-
 const Heading = styled.h1`
   font-size: 4rem;
   cursor: pointer;
 `
 
-const Layout = ({ heading, location, match, children }) => {
+const Layout = ({ location, children }) => {
   const {
-    site: { siteMetadata },
     allSitePage: { edges = [] },
   } = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -118,7 +100,6 @@ const Layout = ({ heading, location, match, children }) => {
     )
     .map(page => page.replace(/\//g, ""))
 
-  console.log(pages)
   return (
     <ThemeProvider theme={{ mode: "dark" }}>
       <GlobalStyle />
