@@ -1,20 +1,50 @@
 import React from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import styled, { ThemeConsumer } from "styled-components"
+import { colors } from "../style_constants"
+import { Link } from "../components/Link"
+
+const Header = styled.h1`
+  font-size: 4rem;
+  cursor: pointer;
+`
+const LinkList = styled.ul`
+  list-style: none;
+  font-size: 2rem;
+  font-weight: 700;
+  & > * > a {
+    background-position: 0 2rem;
+  }
+`
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
+    <Header>gunnar ingi</Header>
+    <LinkList>
+      <li>
+        <Link wide to="/">
+          code
+        </Link>
+      </li>
+      <li>
+        <Link wide to="/">
+          resume
+        </Link>
+      </li>
+      <li>
+        <Link wide to="/">
+          climbing
+        </Link>
+      </li>
+      <li>
+        <Link wide to="/">
+          other
+        </Link>
+      </li>
+    </LinkList>
   </Layout>
 )
 

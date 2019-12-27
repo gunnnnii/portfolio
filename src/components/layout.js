@@ -9,11 +9,61 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
-import Header from "./header"
-import "./layout.css"
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components"
+import { colors, gutter } from "../style_constants"
+import { Footer } from "./footer"
+
+const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.googleapis.com/css?family=Roboto:500,700,900&display=swap');
+    font-style: normal;
+    font-weight: 500 700 900;
+    font-display: fallback;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 24px;
+    font-weight: 500;
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 900;
+  }
+
+  body {
+    overflow-y: scroll;
+    padding: calc(${gutter} * 3);
+    font-family: 'Roboto', sans-serif;
+    background: ${props =>
+      props.theme.mode === "light" ? colors.brightBlue : colors.darkBlue};
+    color: ${props =>
+      props.theme.mode === "light" ? colors.darkBlue : colors.brightBlue};
+  }
+
+`
+
+const Grid = styled.div`
+  display: grid;
+  max-width: 1000px;
+  margin: 0 auto;
+`
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
+  const {
+    site: { siteMetadata },
+  } = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
@@ -23,25 +73,16 @@ const Layout = ({ children }) => {
     }
   `)
 
+  const title = siteMetadata.title
+
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
+    <ThemeProvider theme={{ mode: "dark" }}>
+      <GlobalStyle />
+      <Grid>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
+        <Footer />
+      </Grid>
+    </ThemeProvider>
   )
 }
 
