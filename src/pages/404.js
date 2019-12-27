@@ -11,9 +11,8 @@ const Header = styled.h1`
 `
 
 const NotFoundPage = () => (
-  <Layout>
+  <Layout heading="not found">
     <SEO title="404: Not found" />
-    <Header>not found</Header>
     <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
     <Link to="/">Back home</Link>
   </Layout>

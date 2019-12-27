@@ -72,7 +72,7 @@ const Heading = styled.h1`
   cursor: pointer;
 `
 
-const Layout = ({ location, children }) => {
+const Layout = ({ heading = "gunnar ingi", location, children }) => {
   const {
     allSitePage: { edges = [] },
   } = useStaticQuery(graphql`
@@ -111,7 +111,7 @@ const Layout = ({ location, children }) => {
               <h1>{location.pathname.replace("/", "")}</h1>
             </>
           ) : (
-            <Heading>gunnar ingi</Heading>
+            <Heading>{heading}</Heading>
           )}
         </Header>
         <main>{children}</main>
