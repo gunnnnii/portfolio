@@ -12,6 +12,8 @@ import { useStaticQuery, graphql } from "gatsby"
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components"
 import { colors, gutter } from "../style_constants"
 import { Footer } from "./footer"
+import { Link } from "./Link"
+import { Header, Navigation } from "./header"
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -25,11 +27,11 @@ const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
+    font-weight: 500;
   }
 
   html {
     font-size: 24px;
-    font-weight: 500;
     box-sizing: border-box;
   }
 
@@ -39,7 +41,14 @@ const GlobalStyle = createGlobalStyle`
 
   h1 {
     font-size: 3rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
     font-weight: 900;
+  }
+
+  a {
+    color: inherit;
   }
 
   body {
@@ -60,9 +69,30 @@ const Grid = styled.div`
   margin: 0 auto;
 `
 
-const Layout = ({ children }) => {
+// const Header = ({ children }) => <header>{children}</header>
+
+// const Navigation = ({ pages }) => {
+//   return (
+//     <nav>
+//       <ul>
+//       <Link to="/">Home</Link>
+//       {pages.map(page => (
+//         <Link to={`/${page}`}>{page}</Link>
+//       ))}
+//       </ul>
+//     </nav>
+//   )
+// }
+
+const Heading = styled.h1`
+  font-size: 4rem;
+  cursor: pointer;
+`
+
+const Layout = ({ heading, location, match, children }) => {
   const {
     site: { siteMetadata },
+    allSitePage: { edges = [] },
   } = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -70,15 +100,39 @@ const Layout = ({ children }) => {
           title
         }
       }
+      allSitePage {
+        edges {
+          node {
+            id
+            path
+          }
+        }
+      }
     }
   `)
 
-  const title = siteMetadata.title
+  const pages = edges
+    .map(({ node }) => node.path)
+    .filter(
+      path => !path.match(/\/.+\/.+/) && !path.includes("404") && path !== "/"
+    )
+    .map(page => page.replace(/\//g, ""))
 
+  console.log(pages)
   return (
     <ThemeProvider theme={{ mode: "dark" }}>
       <GlobalStyle />
       <Grid>
+        <Header>
+          {location ? (
+            <>
+              <Navigation pages={pages} />
+              <h1>{location.pathname.replace("/", "")}</h1>
+            </>
+          ) : (
+            <Heading>gunnar ingi</Heading>
+          )}
+        </Header>
         <main>{children}</main>
         <Footer />
       </Grid>

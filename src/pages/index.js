@@ -22,10 +22,9 @@ const LinkList = styled.ul`
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <Header>gunnar ingi</Header>
     <LinkList>
       <li>
-        <Link wide to="/">
+        <Link wide to="/code">
           code
         </Link>
       </li>
