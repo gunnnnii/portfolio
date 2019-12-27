@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -7,33 +7,6 @@ import { FaGithub } from "react-icons/fa"
 import styled from "styled-components"
 import { LinkExt } from "../components/Link"
 import { gutter, colors } from "../style_constants"
-
-const projects = [
-  {
-    name: "smlygift",
-    title: "cryptocurrency tipping bot",
-    desc:
-      "I created a tipping bot using the twitter API to allow tweeters to send each other tips through the Smileycoin protocol \n This project was the final assignment for my class on cryptocurrency",
-    github: "https://github.com/gunnnnii/smlygift",
-    to: "/code/smlygift",
-  },
-  {
-    name: "hopon",
-    title: "ridesharing application",
-    desc:
-      "I created an application to make ride sharing easy \n The backend uses Java Spring and the frontend uses ReactJS and LeafletJS",
-    github: "https://github.com/HBV501G-group19",
-    to: "/code/hopon",
-  },
-  {
-    name: "store",
-    title: "simple storefront",
-    desc:
-      "First ‘large’ React project I did. This is a simple storefront. \n This was the final project in my web dev class",
-    github: "https://github.com/gunnnnii/vef2-2019-h2",
-    to: "/code/store",
-  },
-]
 
 const Cards = styled.ul`
   list-style: none;
@@ -103,7 +76,7 @@ const CardContent = ({ title, description }) => (
 
 const Card = ({ content }) => (
   <CardContainer>
-    <Link to={content.to}>
+    <Link to={content.slug}>
       <CardContent title={content.title} description={content.desc} />
     </Link>
     <LinkExt className="__github" href={content.github}>
@@ -112,15 +85,48 @@ const Card = ({ content }) => (
   </CardContainer>
 )
 
-const Code = ({ location, match }) => (
-  <Layout location={location} match={match}>
-    <SEO title="Code" />
-    <Cards>
-      {projects.map(project => (
-        <Card content={project} />
-      ))}
-    </Cards>
-  </Layout>
-)
+const Code = ({ location, match, data }) => {
+  const {
+    allMarkdownRemark: { edges = [] },
+  } = data
 
+  const cards = edges.map(({ node }) => {
+    const { fields, frontmatter } = node
+    return {
+      ...fields,
+      ...frontmatter,
+    }
+  })
+
+  return (
+    <Layout heading="code" location={location}>
+      <SEO title="Code" />
+      <Cards>
+        {cards.map(project => (
+          <Card key={project.slug} content={project} />
+        ))}
+      </Cards>
+    </Layout>
+  )
+}
 export default Code
+
+export const query = graphql`
+  query AllProjects {
+    allMarkdownRemark {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            desc
+            github
+            name
+            title
+          }
+        }
+      }
+    }
+  }
+`
