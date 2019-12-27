@@ -41,6 +41,7 @@ export const Navigation = ({ pages }) => {
               activeStyle={{
                 backgroundPosition: "0 0",
               }}
+              partiallyActive
             >
               {page}
             </Link>
