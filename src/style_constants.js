@@ -6,4 +6,10 @@ export const colors = {
   white: "#FFFFFF",
 }
 
+export const breakpoints = {
+  small: 500,
+  medium: 800,
+  large: 1100,
+}
+
 export const gutter = "1rem"

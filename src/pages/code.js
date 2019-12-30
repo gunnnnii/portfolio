@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useLayoutEffect, useRef } from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -6,21 +6,35 @@ import SEO from "../components/seo"
 import { FaGithub } from "react-icons/fa"
 import styled from "styled-components"
 import { LinkExt } from "../components/Link"
-import { gutter, colors } from "../style_constants"
+import { gutter, colors, breakpoints } from "../style_constants"
+import { useWindowWidth } from "../hooks/useWindowWidth"
 
-const Cards = styled.ul`
+const CardsStyle = styled.ul`
   list-style: none;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: ${gutter};
 
-  @media (max-width: 1100px) {
+  @media (max-width: ${breakpoints.large}px) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
+  @media (max-width: ${breakpoints.medium}px) {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    & > * {
+      margin: 0 calc(${gutter} / 2);
+      flex: 1 0 50%;
+    }
+  }
+
+  @media (max-width: ${breakpoints.small}px) {
+    & > * {
+      margin: 0 calc(${gutter} / 2);
+      flex: 1 0 75%;
+    }
   }
 `
 
@@ -49,10 +63,26 @@ const CardContainer = styled.li`
   &:hover h2 {
     background-position: 0 0;
   }
+
+  @media (max-width: ${breakpoints.medium}px) {
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    &:first-child {
+      margin-left: 3rem;
+    }
+
+    &:last-child {
+      margin-right: 3rem;
+    }
+  }
+
+  @media (max-width: ${breakpoints.small}px) {
+    scroll-snap-align: center;
+  }
 `
 
 const CardHeading = styled.h2`
-  background-image: ${props => `linear-gradient(
+  background-image: ${() => `linear-gradient(
     180deg,
     ${colors.brightHighlight} 0,
     ${colors.brightHighlight}
@@ -65,6 +95,20 @@ const CardHeading = styled.h2`
   &:hover {
     background-position: 0 0;
   }
+`
+
+const Wrapper = styled.div`
+  width: ${props => props.screenWidth}px;
+  overflow: hidden;
+  margin: 0 calc(${gutter} * -3);
+  @media (min-width: ${breakpoints.medium + 1}px) {
+    width: inherit;
+    margin: inherit;
+  }
+`
+
+const Spacer = styled.span`
+  flex: 0 0 3rem;
 `
 
 const CardContent = ({ title, description }) => (
@@ -85,12 +129,34 @@ const Card = ({ content }) => (
   </CardContainer>
 )
 
-const Code = ({ location, match, data }) => {
+const Cards = ({ cards }) => {
+  const width = useWindowWidth()
+  console.log(width)
+  const containerRef = useRef()
+  useLayoutEffect(() => {}, [])
+  return (
+    <div style={{ margin: "0 auto" }}>
+      <Wrapper screenWidth={width}>
+        <CardsStyle ref={containerRef}>
+          {cards.map((card, index) => (
+            <Card key={card.slug} content={card} />
+          ))}
+          {cards.map((card, index) => (
+            <Card key={card.slug + "extra"} content={card} />
+          ))}
+          {breakpoints.small >= width ? <Spacer aria-hidden="true" /> : null}
+        </CardsStyle>
+      </Wrapper>
+    </div>
+  )
+}
+
+const Code = ({ location, data }) => {
   const {
     allMarkdownRemark: { edges = [] },
   } = data
 
-  const cards = edges.map(({ node }) => {
+  const projects = edges.map(({ node }) => {
     const { fields, frontmatter } = node
     return {
       ...fields,
@@ -101,11 +167,7 @@ const Code = ({ location, match, data }) => {
   return (
     <Layout heading="code" location={location}>
       <SEO title="Code" />
-      <Cards>
-        {cards.map(project => (
-          <Card key={project.slug} content={project} />
-        ))}
-      </Cards>
+      <Cards cards={projects} />
     </Layout>
   )
 }
