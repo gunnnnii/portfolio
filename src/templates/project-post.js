@@ -7,7 +7,7 @@ import { Markdown } from "../components/markdown"
 const ProjectPost = ({ location, data }) => {
   const {
     htmlAst,
-    frontmatter: { title, desc, github },
+    frontmatter: { title, github },
   } = data.markdownRemark
 
   return (

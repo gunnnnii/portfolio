@@ -35,7 +35,7 @@ export const Navigation = ({ pages }) => {
           </Link>
         </li>
         {pages.map(page => (
-          <li>
+          <li key={page}>
             <Link
               to={`/${page}`}
               activeStyle={{
