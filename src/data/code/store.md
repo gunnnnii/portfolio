@@ -2,6 +2,7 @@
 name: store
 title: simple storefront
 desc: First ‘large’ React project I did. This is a simple storefront
+thumbnail: "../images/storefront_frontpage.png"
 github: https://github.com/gunnnnii/vef2-2019-h2
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: smlygift
 title: cryptocurrency tipping bot
+thumbnail: "../images/twitter-bot_tweet.png"
 desc: I created a tipping bot using the Twitter API to allow tweeters to send each other tips through the Smileycoin protocol
 github: https://github.com/gunnnnii/smlygift
 ---

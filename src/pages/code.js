@@ -11,6 +11,7 @@ import { useWindowWidth } from "../hooks/useWindowWidth"
 
 const CardsStyle = styled.ul`
   list-style: none;
+  height: 100%;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -40,14 +41,18 @@ const CardsStyle = styled.ul`
 
 const CardContainer = styled.li`
   background: white;
+  height: 100%;
+
   display: grid;
   grid-template-rows: auto 1fr;
-  box-sizing: content-box;
   padding: ${gutter};
-  max-height: 15rem;
 
   color: ${colors.darkBlue};
 
+  & section {
+    display: flex;
+    flex-direction: column;
+  }
   & a {
     text-decoration: none;
   }
@@ -99,6 +104,8 @@ const CardHeading = styled.h2`
 
 const Wrapper = styled.div`
   width: ${props => props.screenWidth}px;
+  height: 100%;
+
   overflow: hidden;
   margin: 0 calc(${gutter} * -3);
   @media (min-width: ${breakpoints.medium + 1}px) {
@@ -111,9 +118,38 @@ const Spacer = styled.span`
   flex: 0 0 3rem;
 `
 
-const CardContent = ({ title, description }) => (
+const ImageContainer = styled.div`
+  max-width: 100%;
+  height: min(4rem, 10vh);
+  margin: 0.5rem 0;
+
+  border-bottom: calc(${gutter} / 2) solid
+    ${({ theme }) =>
+      theme.mode === "light" ? colors.brightHighlight : colors.darkHighlight};
+
+  display: flex;
+  align-items: center;
+  flex: 0 1 4rem;
+
+  overflow: hidden;
+  & img {
+    object-fit: cover;
+    max-width: 100%;
+  }
+
+  @media (max-width: ${breakpoints.small}px) {
+    flex-basis: 8rem;
+  }
+`
+
+const CardContent = ({ title, thumbnail, description }) => (
   <section>
-    <CardHeading>{title}</CardHeading>
+    <div>
+      <CardHeading>{title}</CardHeading>
+    </div>
+    <ImageContainer>
+      <img src={thumbnail.childImageSharp.fluid.src} />
+    </ImageContainer>
     <p>{description}</p>
   </section>
 )
@@ -121,7 +157,11 @@ const CardContent = ({ title, description }) => (
 const Card = ({ content }) => (
   <CardContainer>
     <Link to={content.slug}>
-      <CardContent title={content.title} description={content.desc} />
+      <CardContent
+        title={content.title}
+        thumbnail={content.thumbnail}
+        description={content.desc}
+      />
     </Link>
     <LinkExt className="__github" href={content.github}>
       <FaGithub />
@@ -131,23 +171,18 @@ const Card = ({ content }) => (
 
 const Cards = ({ cards }) => {
   const width = useWindowWidth()
-  console.log(width)
   const containerRef = useRef()
   useLayoutEffect(() => {}, [])
+  console.log(cards)
   return (
-    <div style={{ margin: "0 auto" }}>
-      <Wrapper screenWidth={width}>
-        <CardsStyle ref={containerRef}>
-          {cards.map((card, index) => (
-            <Card key={card.slug} content={card} />
-          ))}
-          {cards.map((card, index) => (
-            <Card key={card.slug + "extra"} content={card} />
-          ))}
-          {breakpoints.small >= width ? <Spacer aria-hidden="true" /> : null}
-        </CardsStyle>
-      </Wrapper>
-    </div>
+    <Wrapper screenWidth={width}>
+      <CardsStyle ref={containerRef}>
+        {cards.map((card, index) => (
+          <Card key={card.slug} content={card} />
+        ))}
+        {breakpoints.small >= width ? <Spacer aria-hidden="true" /> : null}
+      </CardsStyle>
+    </Wrapper>
   )
 }
 
@@ -186,6 +221,13 @@ export const query = graphql`
             github
             name
             title
+            thumbnail {
+              childImageSharp {
+                fluid {
+                  src
+                }
+              }
+            }
           }
         }
       }

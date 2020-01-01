@@ -2,6 +2,7 @@
 name: gunnnnii.dev
 title: gunnnnii.dev
 desc: Theres gotta be a recursion joke here somewhere...
+thumbnail: "../images/gunnnnii-dev.png"
 github: https://github.com/gunnnnii/portfolio
 ---
 

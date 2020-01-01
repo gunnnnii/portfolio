@@ -54,6 +54,17 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 24px;
     box-sizing: border-box;
+
+    height: 100%;
+    width: 100%;
+    @media (max-width: ${breakpoints.small}px) {
+      font-size: 14px;
+    }
+  }
+
+  #___gatsby, #gatsby-focus-wrapper {
+    height: 100%;
+    width: 100%;
   }
 
   *, *:before, *:after {
@@ -73,6 +84,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    height: 100%;
     width: 100%;
     overflow-y: scroll;
     padding: calc(${gutter} * 3);
@@ -82,16 +94,22 @@ const GlobalStyle = createGlobalStyle`
     color: ${props =>
       props.theme.mode === "light" ? colors.darkBlue : colors.brightBlue};
   }
-
 `
 
 const Grid = styled.div`
   display: grid;
+  height: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  grid-template-rows: auto 1fr auto;
 
   @media (max-width: ${breakpoints.small}px) {
     grid-template-columns: 100%;
+  }
+
+  & > main {
+    height: 100%;
+    width: 100%;
   }
 `
 const Heading = styled.h1`
@@ -130,7 +148,6 @@ const Layout = ({ heading = "gunnar ingi", location, children }) => {
     )
     .map(page => page.replace(/\//g, ""))
 
-  const width = useWindowWidth()
   return (
     <ThemeProvider theme={{ mode: "light" }}>
       <Fonts />

@@ -21,7 +21,7 @@ export const HorizontalList = styled.ul`
   }
 
   & > * > a {
-    background-position: 0 1rem;
+    background-position: 0 ${({ fontSize = 1 }) => fontSize}rem;
     font-size: calc(1rem * ${({ fontSize = 1 }) => fontSize});
   }
 `

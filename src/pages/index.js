@@ -2,8 +2,14 @@ import React from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import styled from "styled-components"
+import styled, { createGlobalStyle } from "styled-components"
 import { Link } from "../components/Link"
+
+const IndexStyle = createGlobalStyle`
+  html {
+    font-size: 24px;
+  }
+`
 
 const LinkList = styled.ul`
   list-style: none;
@@ -17,6 +23,7 @@ const LinkList = styled.ul`
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
+    <IndexStyle />
     <LinkList>
       <li>
         <Link wide to="/code">
