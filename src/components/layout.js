@@ -13,7 +13,9 @@ import styled, { createGlobalStyle, ThemeProvider } from "styled-components"
 import { colors, gutter, breakpoints } from "../style_constants"
 import { Footer } from "./footer"
 import { Header, Navigation } from "./header"
-import { useWindowWidth } from "../hooks/useWindowWidth"
+import { useColorMode } from "../hooks/useColorMode"
+import { Toggle } from "./toggle"
+import { MdBrightness3, MdBrightness5 } from "react-icons/md"
 
 const Fonts = createGlobalStyle`
   @font-face {
@@ -69,6 +71,9 @@ const GlobalStyle = createGlobalStyle`
 
   *, *:before, *:after {
     box-sizing: inherit;
+
+    transition: color 0.2s ease-in;
+    transition: background 0.1s ease-in;
   }
 
   h1 {
@@ -113,11 +118,17 @@ const Grid = styled.div`
   }
 `
 const Heading = styled.h1`
-  font-size: 4rem;
+  font-size: ${({ fontSize = 4 }) => fontSize}rem;
+  word-break: break-word;
   @media (max-width: ${breakpoints.small}px) {
-    font-size: 1rem;
+    font-size: ${({ fontSizeSmall = 2 }) => fontSizeSmall}rem;
   }
   cursor: pointer;
+`
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 const Layout = ({ heading = "gunnar ingi", location, children }) => {
@@ -148,20 +159,34 @@ const Layout = ({ heading = "gunnar ingi", location, children }) => {
     )
     .map(page => page.replace(/\//g, ""))
 
+  const [mode, setMode] = useColorMode()
+  console.log("initializing with ", mode === "dark")
   return (
-    <ThemeProvider theme={{ mode: "light" }}>
+    <ThemeProvider theme={{ mode }}>
       <Fonts />
       <GlobalStyle />
       <Grid>
         <Header>
-          {location ? (
-            <>
-              <Navigation pages={pages} />
-              <h1>{heading || location.pathname.replace("/", "")}</h1>
-            </>
-          ) : (
-            <Heading>{heading}</Heading>
-          )}
+          <Flex>
+            {location ? (
+              <>
+                <Navigation pages={pages} />
+                <Heading fontSize={3}>
+                  {heading || location.pathname.replace("/", "")}
+                </Heading>
+              </>
+            ) : (
+              <Heading fontSizeSmall={1}>{heading}</Heading>
+            )}
+          </Flex>
+          <Toggle
+            init={mode === "dark"}
+            icons={{
+              unchecked: MdBrightness3,
+              checked: MdBrightness5,
+            }}
+            onCheck={checked => setMode(checked ? "dark" : "light")}
+          />
         </Header>
         <main>{children}</main>
         <Footer />

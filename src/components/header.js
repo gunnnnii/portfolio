@@ -3,7 +3,11 @@ import styled from "styled-components"
 import { Link } from "./Link"
 import { HorizontalList } from "./horizontalList"
 
-const HeaderContainer = styled.header``
+const HeaderContainer = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
 
 const LinkList = styled(HorizontalList)`
   margin: 0;
