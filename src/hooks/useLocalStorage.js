@@ -6,7 +6,7 @@ export const useLocalStorage = (key, val) => {
   const checkStorage = useCallback(
     e => {
       console.log("checking", e)
-      if (e.storageArea === window.localStorage) {
+      if (e.storageArea === window && window.localStorage) {
         if (key === e.key && e.newValue) {
           setData(JSON.parse(e.newValue))
         }
@@ -31,9 +31,9 @@ export const useLocalStorage = (key, val) => {
     return () => window.removeEventListener("storage", checkStorage)
   }, [key, val, checkStorage])
 
-  const removeItem = () => localStorage.removeItem(key)
+  const removeItem = () => localStorage && localStorage.removeItem(key)
   const setItem = newVal => {
-    localStorage.setItem(key, JSON.stringify(newVal))
+    if (localStorage) localStorage.setItem(key, JSON.stringify(newVal))
     setData(newVal)
   }
 

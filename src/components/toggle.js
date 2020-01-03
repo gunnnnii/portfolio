@@ -72,7 +72,7 @@ export const Toggle = ({ init, icons, onCheck }) => {
           </IconContext.Provider>
         </ToggleSwitch>
       </ToggleTrack>
-      <Checkbox checked={true} type="checkbox" />
+      <Checkbox checked={isChecked} type="checkbox" />
     </div>
   )
 }
