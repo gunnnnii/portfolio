@@ -1,7 +1,6 @@
 import React from "react"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
 import styled, { createGlobalStyle } from "styled-components"
 import { Link } from "../components/Link"
 
@@ -15,14 +14,10 @@ const LinkList = styled.ul`
   list-style: none;
   font-size: 2rem;
   font-weight: 700;
-  & > * > a {
-    background-position: 0 2rem;
-  }
 `
 
 const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
+  <Layout title="Home">
     <IndexStyle />
     <LinkList>
       <li>
@@ -31,13 +26,8 @@ const IndexPage = () => (
         </Link>
       </li>
       <li>
-        <Link wide to="/">
-          resume
-        </Link>
-      </li>
-      <li>
-        <Link wide to="/">
-          climbing
+        <Link wide to="/about">
+          about me
         </Link>
       </li>
       <li>

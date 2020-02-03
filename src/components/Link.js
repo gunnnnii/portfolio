@@ -1,6 +1,5 @@
 import { Link as GatsbyLink } from "gatsby"
 import styled, { css } from "styled-components"
-import { colors } from "../style_constants"
 
 const style = css`
   text-decoration: none;
@@ -12,18 +11,10 @@ const style = css`
 
   background-image: ${props => `linear-gradient(
     180deg,
-    ${
-      props.theme.mode === "light"
-        ? colors.brightHighlight
-        : colors.darkHighlight
-    } 0,
-    ${
-      props.theme.mode === "light"
-        ? colors.brightHighlight
-        : colors.darkHighlight
-    }
+    ${props.theme.highlight} 0,
+    ${props.theme.highlight}
   )`};
-  background-position: 0 1rem;
+  background-position: 0 1em;
   background-size: 100%;
   transition: background-position 0.2s;
   background-repeat: no-repeat;

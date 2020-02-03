@@ -2,7 +2,7 @@ import React from "react"
 import RehypeReact from "rehype-react"
 import styled from "styled-components"
 import { LinkExt } from "../components/Link"
-import { gutter, colors } from "../style_constants"
+import { gutter } from "../style_constants"
 
 const Article = styled.article`
   margin: ${gutter} 0;
@@ -11,9 +11,7 @@ const Paragraph = styled.p`
   margin: ${gutter} auto;
 `
 const Image = styled.img`
-  border-bottom: calc(${gutter} / 2) solid
-    ${({ theme }) =>
-      theme.mode === "light" ? colors.brightHighlight : colors.darkHighlight};
+  border-bottom: calc(${gutter} / 2) solid ${props => props.theme.highlight};
 `
 const Footnote = styled.sup`
   font-size: 0.5em;

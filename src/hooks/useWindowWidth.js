@@ -10,7 +10,6 @@ const calculateWidth = () =>
 export const useWindowWidth = () => {
   const [width, setWidth] = useState(0)
   const updating = useRef()
-
   useLayoutEffect(() => {
     const updateWidth = delay => () => {
       if (!delay) setWidth(calculateWidth())

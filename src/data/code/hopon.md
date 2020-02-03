@@ -1,6 +1,6 @@
 ---
 name: hopon
-title: ridesharing application
+title: hopon
 desc: I created an application to make ride sharing easy using Java Spring, ReactJS and LeafletJS
 thumbnail: "../images/hopon_search.png"
 github: https://github.com/HBV501G-group19

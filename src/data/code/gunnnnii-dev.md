@@ -8,4 +8,4 @@ github: https://github.com/gunnnnii/portfolio
 
 My personal website, you're looking at it right now!
 
-Built with [Gatsby](https://www.gatsbyjs.org/).
+Built with [Gatsby](https://www.gatsbyjs.org/), React and Styled Components.

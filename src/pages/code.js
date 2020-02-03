@@ -1,12 +1,11 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react"
+import React, { useLayoutEffect, useRef } from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
 import { FaGithub } from "react-icons/fa"
 import styled from "styled-components"
 import { LinkExt } from "../components/Link"
-import { gutter, colors, breakpoints } from "../style_constants"
+import { gutter, breakpoints } from "../style_constants"
 import { useWindowWidth } from "../hooks/useWindowWidth"
 
 const CardsStyle = styled.ul`
@@ -17,10 +16,10 @@ const CardsStyle = styled.ul`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: ${gutter};
 
-  @media (max-width: ${breakpoints.large}px) {
+  /* @media (max-width: ${breakpoints.large}px) {
     grid-template-columns: 1fr 1fr;
-  }
-
+  } */
+/* 
   @media (max-width: ${breakpoints.medium}px) {
     display: flex;
     overflow-x: scroll;
@@ -28,7 +27,7 @@ const CardsStyle = styled.ul`
     & > * {
       margin: 0 calc(${gutter} / 2);
       flex: 1 0 50%;
-    }
+    } */
   }
 
   @media (max-width: ${breakpoints.small}px) {
@@ -44,15 +43,18 @@ const CardContainer = styled.li`
   height: 100%;
 
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto min-content;
   padding: ${gutter};
 
-  color: ${colors.darkBlue};
+  color: ${props => props.theme.text};
+  background: ${props => props.theme.backdrop};
 
   & section {
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
+
   & a {
     text-decoration: none;
   }
@@ -69,7 +71,7 @@ const CardContainer = styled.li`
     background-position: 0 0;
   }
 
-  @media (max-width: ${breakpoints.medium}px) {
+  /* @media (max-width: ${breakpoints.medium}px) {
     box-sizing: border-box;
     scroll-snap-align: start;
     &:first-child {
@@ -79,7 +81,7 @@ const CardContainer = styled.li`
     &:last-child {
       margin-right: 3rem;
     }
-  }
+  } */
 
   @media (max-width: ${breakpoints.small}px) {
     scroll-snap-align: center;
@@ -87,12 +89,12 @@ const CardContainer = styled.li`
 `
 
 const CardHeading = styled.h2`
-  background-image: ${() => `linear-gradient(
+  background-image: ${props => `linear-gradient(
     180deg,
-    ${colors.brightHighlight} 0,
-    ${colors.brightHighlight}
+    ${props.theme.highlight} 0,
+    ${props.theme.highlight}
   )`};
-  background-position: 0 1rem;
+  background-position: 0 1em;
   background-size: 100%;
   transition: background-position 0.2s 0.1s;
   background-repeat: no-repeat;
@@ -103,14 +105,11 @@ const CardHeading = styled.h2`
 `
 
 const Wrapper = styled.div`
-  width: ${props => props.screenWidth}px;
-  height: 100%;
-
-  overflow: hidden;
-  margin: 0 calc(${gutter} * -3);
-  @media (min-width: ${breakpoints.medium + 1}px) {
-    width: inherit;
-    margin: inherit;
+  @media (max-width: ${breakpoints.small}) {
+    height: 100%;
+    overflow: hidden;
+    margin: 0 calc(${gutter} * -3);
+    width: ${props => props.screenWidth}px;
   }
 `
 
@@ -123,9 +122,7 @@ const ImageContainer = styled.div`
   height: min(4rem, 10vh);
   margin: 0.5rem 0;
 
-  border-bottom: calc(${gutter} / 2) solid
-    ${({ theme }) =>
-      theme.mode === "light" ? colors.brightHighlight : colors.darkHighlight};
+  border-bottom: calc(${gutter} / 2) solid ${props => props.theme.text};
 
   display: flex;
   align-items: center;
@@ -148,7 +145,7 @@ const CardContent = ({ title, thumbnail, description }) => (
       <CardHeading>{title}</CardHeading>
     </div>
     <ImageContainer>
-      <img src={thumbnail.childImageSharp.fluid.src} />
+      <img src={thumbnail.childImageSharp.fluid.src} alt="" aria-hidden />
     </ImageContainer>
     <p>{description}</p>
   </section>
@@ -172,8 +169,6 @@ const Card = ({ content }) => (
 const Cards = ({ cards }) => {
   const width = useWindowWidth()
   const containerRef = useRef()
-  useLayoutEffect(() => {}, [])
-  console.log(cards)
   return (
     <Wrapper screenWidth={width}>
       <CardsStyle ref={containerRef}>
@@ -200,8 +195,7 @@ const Code = ({ location, data }) => {
   })
 
   return (
-    <Layout heading="code" location={location}>
-      <SEO title="Code" />
+    <Layout title="Code" heading="code" location={location}>
       <Cards cards={projects} />
     </Layout>
   )
