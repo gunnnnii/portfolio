@@ -20,12 +20,6 @@ const IconList = styled(HorizontalList)`
   margin-top: 2rem;
 `
 
-const HiddenP = styled.p`
-  visibility: hidden;
-  height: 0;
-  width: 0;
-`
-
 export const Footer = () => {
   const width = useWindowWidth()
   const fontSize = width > breakpoints.small ? 4 : 2
@@ -34,21 +28,21 @@ export const Footer = () => {
       <IconContext.Provider value={{ size: `${fontSize}rem` }}>
         <IconList fontSize={fontSize}>
           <li>
-            <LinkExt href="https://github.com/gunnnnii">
+            <LinkExt aria-label="Github" href="https://github.com/gunnnnii">
               <FaGithub />
-              <HiddenP>Github</HiddenP>
             </LinkExt>
           </li>
           <li>
-            <LinkExt href="https://www.linkedin.com/in/gunnar-ingi-stef%C3%A1nsson-1b906a182/">
+            <LinkExt
+              aria-label="LinkedIn"
+              href="https://www.linkedin.com/in/gunnar-ingi-stef%C3%A1nsson-1b906a182/"
+            >
               <FaLinkedin />
-              <HiddenP>LinkedIn</HiddenP>
             </LinkExt>
           </li>
           <li>
-            <LinkExt href="mailto:gis20@hi.is">
+            <LinkExt aria-label="Email address" href="mailto:gis20@hi.is">
               <MdMessage />
-              <HiddenP>gis20@hi.is</HiddenP>
             </LinkExt>
           </li>
         </IconList>
