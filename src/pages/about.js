@@ -74,7 +74,7 @@ const About = ({ location }) => {
                   in Tempo reports
                 </li>
                 <li>
-                  Visualized data with charts in multiple Jiira gadgets with
+                  Visualized data with charts in multiple Jira gadgets with
                   Recharts and Nivo
                 </li>
                 <li>Wrote end-to-end tests in Cypress for Tempo Cloud</li>
