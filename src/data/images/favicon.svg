@@ -1,0 +1,41 @@
+<svg 
+viewBox="0 0 512 512"
+  version="1.1" xmlns="http://www.w3.org/2000/svg" 
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      #rectangle {
+        fill: #0D3B66;
+      }
+    }
+  </style>
+  <defs>
+    <mask id="mask">
+      <rect x="0" y="0" width="512"  rx="50" height="512" fill="white"/>
+      <text
+        style="
+        fill: black;
+        font-family: &quot;Open Sans&quot;;
+        font-size: 30em;
+        font-weight: 800;
+        text-anchor: middle;
+        "
+        x="256"
+        y="325"
+      >
+        g
+      </text>
+    </mask>
+  </defs>
+  <rect
+    x="0"
+    y="0"
+    width="512"
+    rx="50"
+    height="512"
+    fill="#98E2FC"
+    mask="url(#mask)"
+    id="rectangle"
+  />
+</svg>
