@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { gutter } from "../style_constants"
+import { gutter, breakpoints } from "../style_constants"
 
 export const HorizontalList = styled.ul`
   display: flex;
@@ -23,5 +23,10 @@ export const HorizontalList = styled.ul`
   & > * > a {
     background-position: 0 ${({ fontSize = 1 }) => fontSize}rem;
     font-size: calc(1rem * ${({ fontSize = 1 }) => fontSize});
+
+    @media (max-width: ${breakpoints.small}px) {
+      background-position: 0 ${({ fontSize = 3 }) => fontSize}rem;
+      font-size: calc(1rem * ${({ fontSize = 3 }) => fontSize});
+    }
   }
 `

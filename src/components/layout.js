@@ -24,6 +24,7 @@ const Grid = styled.div`
 
   @media (max-width: ${breakpoints.small}px) {
     grid-template-columns: 100%;
+    font-size: 2rem;
   }
 
   & > main {
@@ -35,7 +36,7 @@ const Heading = styled.h1`
   font-size: ${({ fontSize = 4 }) => fontSize}rem;
   word-break: break-word;
   @media (max-width: ${breakpoints.small}px) {
-    font-size: ${({ fontSizeSmall = 2 }) => fontSizeSmall}rem;
+    font-size: ${({ fontSizeSmall = 6 }) => fontSizeSmall}rem;
   }
   cursor: pointer;
 `

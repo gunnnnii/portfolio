@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import styled from "styled-components"
-import { gutter } from "../style_constants"
+import { gutter, breakpoints } from "../style_constants"
 import { LinkExt } from "../components/Link"
 
 const Section = styled.section`
@@ -36,20 +36,36 @@ const Content = styled.div`
 
 const GridList = styled.ul`
   display: grid;
-  grid-template-areas: "a a a";
+  grid-template-columns: 1fr 1fr 1fr;
 
   list-style: none;
 
   & > li {
     margin: 0.25rem 0;
   }
+
+  @media (max-width: ${breakpoints.small}px) {
+    border-left: 0.5rem solid ${props => props.theme.text};
+    padding-left: 0.5rem;
+    grid-template-columns: 1fr;
+
+    & > li::before {
+      content: ">";
+      font-weight: 900;
+      margin-right: 0.25rem;
+    }
+  }
+`
+
+const Heading = styled.h2`
+  font-size: 1.5em;
 `
 
 const About = ({ location }) => {
   return (
     <Layout title="About Me" heading="about me" location={location}>
       <Section>
-        <h2>Hey there, I'm Gunnar.</h2>
+        <Heading>Hey there, I'm Gunnar.</Heading>
         <p>
           I'm a student learning computer science at the{" "}
           <LinkExt href="https://hi.is/">University of Iceland</LinkExt>.
@@ -78,6 +94,13 @@ const About = ({ location }) => {
                   Recharts and Nivo
                 </li>
                 <li>Wrote end-to-end tests in Cypress for Tempo Cloud</li>
+                <li>
+                  This semester(spring 2020) I have been working on my final
+                  project with Tempo. Developing a CLI to generate boilerplate
+                  for Javascript modules with the focus on providing a great,
+                  zero-config developer experience.{" "}
+                  <small>(Not a part of the internship)</small>
+                </li>
               </BulletList>
             </Content>
           </Li>

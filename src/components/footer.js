@@ -14,7 +14,7 @@ const StyledFooter = styled.footer`
 `
 
 const IconList = styled(HorizontalList)`
-  margin-top: 2rem;
+  margin-top: 1rem;
 `
 
 export const Footer = () => {
@@ -22,7 +22,7 @@ export const Footer = () => {
   const fontSize = width > breakpoints.small ? 4 : 2
   return (
     <StyledFooter>
-      <IconContext.Provider value={{ size: `${fontSize}rem` }}>
+      <IconContext.Provider value={{ size: `${4}rem` }}>
         <IconList fontSize={fontSize}>
           <li>
             <LinkExt aria-label="Github" href="https://github.com/gunnnnii">
