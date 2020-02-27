@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react"
+import React, { useRef } from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -15,20 +15,6 @@ const CardsStyle = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: ${gutter};
-
-  /* @media (max-width: ${breakpoints.large}px) {
-    grid-template-columns: 1fr 1fr;
-  } */
-/* 
-  @media (max-width: ${breakpoints.medium}px) {
-    display: flex;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    & > * {
-      margin: 0 calc(${gutter} / 2);
-      flex: 1 0 50%;
-    } */
-  }
 
   @media (max-width: ${breakpoints.small}px) {
     & > * {
@@ -70,18 +56,6 @@ const CardContainer = styled.li`
   &:hover h2 {
     background-position: 0 0;
   }
-
-  /* @media (max-width: ${breakpoints.medium}px) {
-    box-sizing: border-box;
-    scroll-snap-align: start;
-    &:first-child {
-      margin-left: 3rem;
-    }
-
-    &:last-child {
-      margin-right: 3rem;
-    }
-  } */
 
   @media (max-width: ${breakpoints.small}px) {
     scroll-snap-align: center;

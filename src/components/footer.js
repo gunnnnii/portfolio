@@ -11,9 +11,6 @@ import { useWindowWidth } from "../hooks/useWindowWidth"
 const StyledFooter = styled.footer`
   display: flex;
   align-items: flex-end;
-  /* @media (max-width: ${breakpoints.medium}px) {
-    margin: 0 auto;
-  } */
 `
 
 const IconList = styled(HorizontalList)`

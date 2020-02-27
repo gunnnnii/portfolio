@@ -31,7 +31,7 @@ const IndexPage = () => (
         </Link>
       </li>
       <li>
-        <Link wide to="/">
+        <Link wide to="/other">
           other
         </Link>
       </li>

@@ -96,24 +96,29 @@ export const GlobalStyle = createGlobalStyle`
 export const Theme = ({ children }) => {
   const [mode, setMode] = useState(() => {
     const hour = new Date().getHours()
-    if (hour > 6 && hour <= 17) {
-      return colors.morning
-    } else if (hour > 17 && hour < 22) {
-      return colors.evening
-    } else {
-      return colors.night
-    }
+    if (hour > 6 && hour <= 17) return colors.morning
+    else return colors.night
+    // link underlines don't update when setting to .evening for some reason...
+    // if (hour > 6 && hour <= 17) {
+    //   return colors.morning
+    // } else if (hour > 17 && hour < 22) {
+    //   return colors.evening
+    // } else {
+    //   return colors.night
+    // }
   })
 
   useEffect(() => {
     const hour = new Date().getHours()
-    if (hour > 6 && hour <= 17) {
-      setMode(colors.morning)
-    } else if (hour > 17 && hour < 22) {
-      setMode(colors.evening)
-    } else {
-      setMode(colors.night)
-    }
+    if (hour > 6 && hour <= 17) setMode(colors.morning)
+    else setMode(colors.night)
+    // if (hour > 6 && hour <= 17) {
+    //   setMode(colors.morning)
+    // } else if (hour > 17 && hour < 22) {
+    //   setMode(colors.evening)
+    // } else {
+    //   setMode(colors.night)
+    // }
   }, [])
 
   return (
