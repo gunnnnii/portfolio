@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { ThemeProvider, createGlobalStyle } from "styled-components"
 import { breakpoints, colors, gutter } from "../style_constants"
 
@@ -94,32 +94,27 @@ export const GlobalStyle = createGlobalStyle`
 
 // 00:00-06:00 / night / 06:00-17:00 / morning / 17:00-22:00 / evening / 22:00-00:00 / night /
 export const Theme = ({ children }) => {
-  const [mode, setMode] = useState(() => {
-    const hour = new Date().getHours()
-    if (hour > 6 && hour <= 17) return colors.morning
-    else return colors.night
-    // link underlines don't update when setting to .evening for some reason...
-    // if (hour > 6 && hour <= 17) {
-    //   return colors.morning
-    // } else if (hour > 17 && hour < 22) {
-    //   return colors.evening
-    // } else {
-    //   return colors.night
-    // }
-  })
+  const [hasMounted, setHasMounted] = useState(false)
+  const [mode, setMode] = useState(colors.night)
 
   useEffect(() => {
-    const hour = new Date().getHours()
-    if (hour > 6 && hour <= 17) setMode(colors.morning)
-    else setMode(colors.night)
-    // if (hour > 6 && hour <= 17) {
-    //   setMode(colors.morning)
-    // } else if (hour > 17 && hour < 22) {
-    //   setMode(colors.evening)
-    // } else {
-    //   setMode(colors.night)
-    // }
+    setHasMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (!hasMounted) {
+      setMode(colors.night)
+    } else {
+      const hour = new Date().getHours()
+      if (hour > 6 && hour <= 17) {
+        setMode(colors.morning)
+      } else if (hour > 17 && hour < 22) {
+        setMode(colors.evening)
+      } else {
+        setMode(colors.night)
+      }
+    }
+  }, [hasMounted])
 
   return (
     <ThemeProvider theme={mode}>
