@@ -103,9 +103,19 @@ export const Theme = ({ children }) => {
     setHasMounted(true)
   }, [])
 
+  const prefersDarkMode = () =>
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+
+  const prefersLightMode = () =>
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: light)").matches
+
   useEffect(() => {
-    if (!hasMounted) {
+    if (!hasMounted || prefersDarkMode()) {
       setMode(colors.night)
+    } else if (!hasMounted || prefersLightMode()) {
+      setMode(colors.morning)
     } else {
       const hour = new Date().getHours()
       if (hour > 6 && hour <= 17) {
