@@ -67,7 +67,7 @@ export const query = graphql`
             frontmatter {
               thumbnail {
                 childImageSharp {
-                  fluid(maxWidth: 600, quality: 95) {
+                  fluid(maxHeight: 800, quality: 95) {
                     src
                   }
                   id

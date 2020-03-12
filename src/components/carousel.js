@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, { useRef} from 'react'
 import styled from 'styled-components'
 
 const Slider = styled.div`
@@ -7,59 +7,62 @@ const Slider = styled.div`
   display: flex;
   text-align: center;
   overflow: hidden;
-
+  background: radial-gradient(circle at top, 
+      ${props => props.theme.backdrop}, 
+      ${props => props.theme.background}
+    );
   align-self: center;
 
   position: relative;
 
-&::before {
-  content: "";
-  z-index: 1000;
-  opacity: 0%;
+  &::before {
+    content: "";
+    z-index: 1000;
+    opacity: 0%;
 
-  position: absolute;
-  top: 50%;
-  width: 3rem;
-  height: 3rem;
-  right: 1px;
-  background: transparent;
-  background-image: url('/assets/arrow.svg');
-  background-size: contain;
-  border: none;
-  color: transparent;
+    position: absolute;
+    top: 50%;
+    width: 3rem;
+    height: 3rem;
+    right: 1px;
+    background: transparent;
+    background-image: url('/assets/arrow.svg');
+    background-size: contain;
+    border: none;
+    color: transparent;
 
-  left: 0;
-  transform: scaleX(-1);
+    left: 0;
+    transform: scaleX(-1);
 
-  transition: opacity 0.3s ease-out;
-}
-
-&:hover {
-  &::before, &::after{
-    opacity: 25%;
+    transition: opacity 0.3s ease-out;
   }
-}
 
-&::after {
-  content: "";
-  z-index: 1000;
-  opacity: 0%;
+  &:hover {
+    &::before, &::after{
+      opacity: 25%;
+    }
+  }
 
-  position: absolute;
-  top: 50%;
-  width: 3rem;
-  height: 3rem;
-  right: 1px;
-  background: transparent;
-  background-image: url('/assets/arrow.svg');
-  background-size: contain;
-  border: none;
-  color: transparent;
-  
-  right: 0;
+  &::after {
+    content: "";
+    z-index: 1000;
+    opacity: 0%;
 
-  transition: opacity 0.3s ease-out;
-}
+    position: absolute;
+    top: 50%;
+    width: 3rem;
+    height: 3rem;
+    right: 1px;
+    background: transparent;
+    background-image: url('/assets/arrow.svg');
+    background-size: contain;
+    border: none;
+    color: transparent;
+    
+    right: 0;
+
+    transition: opacity 0.3s ease-out;
+  }
 `
 
 const SlideList = styled.ul`
@@ -80,38 +83,6 @@ const SlideList = styled.ul`
   }
   &::-webkit-scrollbar-track {
     background: ${props => props.theme.highlight};
-  }
-
- 
-`
-
-const SlideContainer = styled.li`
-  min-width: 100%;
-  min-height: 600px;
-  margin: 0;
-  scroll-snap-align: start;
-
-  position: relative;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  & > img {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  & > img:focus {
-    border: 1px solid red;
   }
 
   & > .slide-button {
@@ -139,20 +110,88 @@ const SlideContainer = styled.li`
   }
 `
 
-const Slide = ({ image, scroll }) => {
-  const slideRef = useRef(null)
+const SlideContainer = styled.li`
+  min-width: 100%;
+  min-height: 600px;
+  margin: 0;
+  scroll-snap-align: start;
+
+  position: relative;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  & > img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    display: flex;
+    align-items: flex-end;
+  }
+`
+
+const Slide = ({ image }) => {
+  return (
+    <SlideContainer
+      id={image.id}
+      key={image.id}
+      id={image.id}
+    >
+      <img src={image.src} alt={image.description} />
+    </SlideContainer>
+  )
+}
+
+// TODO: focus management
+export const Carousel = ({ images }) => {
+  const scrollStatus = useRef({
+    isScrolling: false,
+    amount: 0
+  })
+  const sliderRef = useRef(null)
+
+  const scrollTimeoutRef = useRef(null)
+
+  const scroll = offset => {
+    clearTimeout(scrollTimeoutRef.current)
+    scrollStatus.current.amount += offset
+    const { current: slider } = sliderRef
+    scrollTimeoutRef.current = setTimeout(() => {
+      let scrollTo = slider.scrollLeft + scrollStatus.current.amount;
+      if (scrollTo >= slider.scrollWidth) {
+        scrollTo -= slider.scrollWidth
+      } else if (scrollTo <= 0) {
+        scrollTo += slider.scrollWidth
+      }
+
+      slider.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth'
+      })
+      scrollStatus.current.amount = 0
+    }, 100)
+  }
 
   const next = () => {
-    if (slideRef && slideRef.current) {
-      console.log(slideRef.current.offsetWidth)
-      scroll(slideRef.current.offsetWidth)
+    if (sliderRef.current) {
+      const offset = sliderRef.current.scrollWidth / images.length
+      scroll(offset)
     }
   }
 
   const prev = () => {
-    if (slideRef && slideRef.current) {
-      console.log(slideRef.current.offsetWidth)
-      scroll(-slideRef.current.offsetWidth)
+    if (sliderRef.current) {
+      const offset = sliderRef.current.scrollWidth / images.length
+      scroll(-offset)
     }
   }
 
@@ -166,66 +205,11 @@ const Slide = ({ image, scroll }) => {
   }
 
   return (
-    <SlideContainer
-      ref={slideRef}
-      id={image.id}
-      key={image.id}
-      onKeyUp={keyhandler}
-      id={image.id}
-    >
-      <img src={image.src} alt={image.description} />
-      <button className="slide-button prev" onClick={prev}>
-        prev
-      </button>
-      <button className="slide-button next" onClick={next}>
-        next
-      </button>
-    </SlideContainer>
-  )
-}
-
-// TODO: make it so you can jump over multiple images when pressing
-//       the next/prev slide button consecutively
-export const Carousel = ({ images }) => {
-  const [position, setPosition] = useState(0)
-
-  useEffect(() => {
-    const img = document.getElementById(images[position].id)
-    img.focus()
-  }, [position, images])
-
-  useEffect(() => {}, [position])
-
-  const sliderRef = useRef(null)
-  const scroll = offset => {
-    const { current: slider } = sliderRef
-    if (slider) {
-      const { scrollWidth, scrollLeft } = slider
-      const isLeftEdge = position === 0
-      const isRightEdge = position === images.length - 1
-
-      if (isLeftEdge) {
-      }
-
-      if (scrollLeft + offset < 0)
-        slider.scrollTo({ left: scrollWidth, behavior: "smooth" })
-      // don't know why scrollwidth is 1px bigger then expected..
-      if (scrollLeft + offset >= scrollWidth - 1)
-        slider.scrollTo({ left: 0, behavior: "smooth" })
-      else slider.scrollTo({ left: scrollLeft + offset, behavior: "smooth" })
-
-      setPosition(p => {
-        const newPos = offset > 0 ? p + 1 : p - 1
-        if (newPos < 0) return images.length - 1
-        if (newPos > images.length - 1) return 0
-        return newPos
-      })
-    }
-  }
-
-  return (
     <Slider>
-      <SlideList ref={sliderRef}>
+      <SlideList ref={sliderRef} onKeyUp={keyhandler}>
+        <button className="slide-button prev" onClick={prev}>
+          prev
+        </button>
         {images.map(image => (
           <Slide
             key={image.id}
@@ -233,6 +217,9 @@ export const Carousel = ({ images }) => {
             scroll={scroll}
           />
         ))}
+        <button className="slide-button next" onClick={next}>
+          next
+        </button>
       </SlideList>
     </Slider>
   )
