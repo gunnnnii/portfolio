@@ -178,7 +178,7 @@ export default Code
 
 export const query = graphql`
   query AllProjects {
-    allMarkdownRemark {
+    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/code/"}}) {
       edges {
         node {
           fields {
