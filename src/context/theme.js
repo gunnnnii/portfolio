@@ -15,8 +15,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 24px;
     box-sizing: border-box;
 
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
     @media (max-width: ${breakpoints.small}px) {
       font-size: 14px;
     }
@@ -61,6 +61,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: calc(${gutter} * 3);
     font-family: 'Roboto', sans-serif;
     background: ${props => props.theme.background};
+    background: ${props => props.theme.backgroundGradient};
     color: ${props => props.theme.text};
   }
 `
