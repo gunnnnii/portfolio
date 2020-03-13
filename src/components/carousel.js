@@ -1,6 +1,6 @@
 import React, { useRef} from 'react'
 import styled from 'styled-components'
-
+import {breakpoints} from '../style_constants'
 const Slider = styled.div`
   margin: 1rem 0;
   width: 100%;
@@ -63,6 +63,36 @@ const Slider = styled.div`
 
     transition: opacity 0.3s ease-out;
   }
+
+  & .slide-button {
+    z-index: 1001;
+    position: absolute;
+    top: 0%;
+    bottom: 1rem;
+    width: 45%;
+    border: none;
+    color: transparent;
+    background: transparent;
+  }
+
+  @media (max-width: ${breakpoints.small}px) {
+    & .slide-button {
+        width: 10%;
+    }
+  }
+
+  & .slide-button.next {
+    right: 0;
+  }
+
+  & .slide-button.prev {
+    left: 0;
+  }
+
+  & .slide-button:focus {
+    border: none;
+    outline: none;
+  }
 `
 
 const SlideList = styled.ul`
@@ -83,30 +113,6 @@ const SlideList = styled.ul`
   }
   &::-webkit-scrollbar-track {
     background: ${props => props.theme.highlight};
-  }
-
-  & > .slide-button {
-    z-index: 1001;
-    position: absolute;
-    top: 0%;
-    bottom: 0%;
-    width: 45%;
-    border: none;
-    color: transparent;
-    background: transparent;
-  }
-
-  & > .slide-button.next {
-    right: 0;
-  }
-
-  & > .slide-button.prev {
-    left: 0;
-  }
-
-  & > .slide-button:focus {
-    border: none;
-    outline: none;
   }
 `
 
@@ -169,7 +175,7 @@ export const Carousel = ({ images }) => {
       let scrollTo = slider.scrollLeft + scrollStatus.current.amount;
       if (scrollTo >= slider.scrollWidth) {
         scrollTo -= slider.scrollWidth
-      } else if (scrollTo <= 0) {
+      } else if (scrollTo < 0) {
         scrollTo += slider.scrollWidth
       }
 
