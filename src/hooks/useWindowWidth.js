@@ -9,17 +9,20 @@ const calculateWidth = () =>
 
 export const useWindowWidth = () => {
   const [width, setWidth] = useState(0)
-  const updating = useRef()
+  const update = useRef({
+    isUpdating: false,
+    timeout: null
+  })
   useLayoutEffect(() => {
     const updateWidth = delay => () => {
       if (!delay) setWidth(calculateWidth())
       else {
-        if (updating.current) return
+        if (update.current) return
 
-        updating.current = true
+        update.current.isUpdating = true
 
-        setTimeout(() => {
-          updating.current = false
+        update.current.timeout = setTimeout(() => {
+          update.current.isUpdating = false
           setWidth(calculateWidth())
         }, [delay])
       }
@@ -28,7 +31,10 @@ export const useWindowWidth = () => {
     window.addEventListener("resize", updateWidth(300))
 
     updateWidth(0)()
-    return () => window.removeEventListener("resize", updateWidth)
+    return () => {
+      window.removeEventListener("resize", updateWidth)
+      clearTimeout(update.current.timeout)
+    }
   }, [])
   return width
 }
