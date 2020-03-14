@@ -1,5 +1,7 @@
-import React, { useReducer, useRef, useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
+import { graphql } from 'gatsby'
+
 import { gutter } from "../style_constants"
 
 import Layout from "../components/layout"

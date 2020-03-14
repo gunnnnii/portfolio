@@ -150,7 +150,6 @@ const Slide = ({ image }) => {
     <SlideContainer
       id={image.id}
       key={image.id}
-      id={image.id}
     >
       <img src={image.src} alt={image.description} />
     </SlideContainer>

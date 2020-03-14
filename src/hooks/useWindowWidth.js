@@ -33,7 +33,9 @@ export const useWindowWidth = () => {
     updateWidth(0)()
     return () => {
       window.removeEventListener("resize", updateWidth)
-      clearTimeout(update.current.timeout)
+      
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      clearTimeout(update.current.timeout) // ignore this warning, it's not relevant here
     }
   }, [])
   return width

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import { ThemeProvider, createGlobalStyle } from "styled-components"
 import { breakpoints, colors, gutter } from "../style_constants"
 
