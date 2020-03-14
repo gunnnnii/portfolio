@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-size: 24px;
+    font-size: 16px;
     box-sizing: border-box;
 
     min-height: 100%;

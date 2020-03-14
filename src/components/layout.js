@@ -33,7 +33,7 @@ const Grid = styled.div`
   }
 `
 const Heading = styled.h1`
-  font-size: ${({ fontSize = 4 }) => fontSize}rem;
+  font-size: ${({ fontSizeSmall = 4 }) => fontSizeSmall}rem;
   word-break: break-word;
   @media (max-width: ${breakpoints.small}px) {
     & {

@@ -13,6 +13,16 @@ const HeaderContainer = styled.header`
 
 const LinkList = styled(HorizontalList)`
   margin: 0;
+
+  & > li {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  & > li:first-child, & > li:last-child {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 `
 
 const HeaderLink = styled(Link)`
@@ -21,8 +31,6 @@ const HeaderLink = styled(Link)`
 `
 
 const HeaderLi = styled.li`
-  margin-top: 0;
-  margin-bottom: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   text-overflow: "";

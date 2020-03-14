@@ -25,10 +25,9 @@ export const Footer = () => {
   const width = useWindowWidth()
   const fontSize = width > breakpoints.small ? 4 : 2
 
-  console.log('footer font size', fontSize)
   return (
     <StyledFooter>
-      <IconContext.Provider value={{ size: `${fontSize}em` }}>
+      <IconContext.Provider value={{ size: `${fontSize}rem` }}>
         <IconList fontSize={fontSize}>
           <li>
             <LinkExt aria-label="Github" href="https://github.com/gunnnnii">
