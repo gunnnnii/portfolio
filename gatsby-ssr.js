@@ -19,7 +19,7 @@ const titles = {
   other: "other"
 }
 
-const getTitle = path => {
+const getTitle = (path = "") => {
   const pathSteps = path.split("/").map(p => p.replace(/\//g, "")).filter(Boolean)
   if (titles[pathSteps[0]] == null) return "404 - Page does not exist"
   const slug = pathSteps.pop()
