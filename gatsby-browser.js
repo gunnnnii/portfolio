@@ -19,14 +19,16 @@ const titles = {
 }
 
 const getTitle = path => {
-  return titles[path]
+  const pathSteps = path.split("/").map(p => p.replace(/\//g, "")).filter(Boolean)
+  const slug = pathSteps.pop()
+  return titles[slug]
 }
 
 exports.wrapPageElement = ({element, props}) => {
   if (props.path === "/") 
-    return <Layout title="home" {...props}>{element}</Layout>
+    return <Layout title="home" heading="gunnar ingi" {...props}>{element}</Layout>
   else {
-    const title = getTitle(props.path.replace(/\//g, ""))
+    const title = getTitle(props.path)
     return <Layout title={title} heading={title} {...props}>{element}</Layout>
   }
 }

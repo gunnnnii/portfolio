@@ -11,6 +11,10 @@ import { useWindowWidth } from "../hooks/useWindowWidth"
 const StyledFooter = styled.footer`
   display: flex;
   align-items: flex-end;
+
+  @media (max-width: ${breakpoints.small}px) {
+    justify-content: center;
+  }
 `
 
 const IconList = styled(HorizontalList)`
@@ -20,9 +24,11 @@ const IconList = styled(HorizontalList)`
 export const Footer = () => {
   const width = useWindowWidth()
   const fontSize = width > breakpoints.small ? 4 : 2
+
+  console.log('footer font size', fontSize)
   return (
     <StyledFooter>
-      <IconContext.Provider value={{ size: `${4}rem` }}>
+      <IconContext.Provider value={{ size: `${fontSize}em` }}>
         <IconList fontSize={fontSize}>
           <li>
             <LinkExt aria-label="Github" href="https://github.com/gunnnnii">

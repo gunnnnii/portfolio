@@ -1,24 +1,16 @@
 import React from "react"
 
-import Layout from "../components/layout"
-import styled, { createGlobalStyle } from "styled-components"
+import styled from "styled-components"
 import { Link } from "../components/Link"
-
-const IndexStyle = createGlobalStyle`
-  html {
-    font-size: 24px;
-  }
-`
 
 const LinkList = styled.ul`
   list-style: none;
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 700;
 `
 
 const IndexPage = () => (
   <>
-    <IndexStyle />
     <LinkList>
       <li>
         <Link wide to="/code">

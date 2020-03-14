@@ -63,6 +63,7 @@ export const GlobalStyle = createGlobalStyle`
     background: ${props => props.theme.background};
     background: ${props => props.theme.backgroundGradient};
     background-size: 100vw 100vh;
+    background-attachment: fixed;
     color: ${props => props.theme.text};
   }
 `

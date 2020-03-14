@@ -48,7 +48,7 @@ const Flex = styled.div`
   flex-direction: column;
 `
 
-const Layout = ({ title, heading = "gunnar ingi", location, children }) => {
+const Layout = ({ title, heading, location, children }) => {
   const {
     allSitePage: { edges = [] },
   } = useStaticQuery(graphql`
@@ -86,12 +86,14 @@ const Layout = ({ title, heading = "gunnar ingi", location, children }) => {
             {location.pathname !== "/" ? (
               <>
                 <Navigation location={location} pages={pages} />
-                <Heading fontSizeSmall={4}>
-                  {heading || location.pathname.replace("/", "")}
-                </Heading>
+                {heading && (
+                  <Heading fontSizeSmall={4}>
+                    {heading || location.pathname.replace("/", "")}
+                  </Heading> 
+                )}
               </>
             ) : (
-              <Heading fontSizeSmall={1}>{heading}</Heading>
+              <Heading fontSizeSmall={2}>{heading}</Heading>
             )}
           </Flex>
         </Header>
