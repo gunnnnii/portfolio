@@ -15,13 +15,13 @@ const Slider = styled.div`
 
   position: relative;
 
-  &::before {
+  &::before, &::after {
     content: "";
     z-index: 1000;
     opacity: 0%;
 
     position: absolute;
-    top: 50%;
+    top: calc(50% - 1rem);
     width: 3rem;
     height: 3rem;
     right: 1px;
@@ -30,9 +30,6 @@ const Slider = styled.div`
     background-size: contain;
     border: none;
     color: transparent;
-
-    left: 0;
-    transform: scaleX(-1);
 
     transition: opacity 0.3s ease-out;
   }
@@ -43,25 +40,13 @@ const Slider = styled.div`
     }
   }
 
+  &::before {
+    transform: scaleX(-1);
+    left: 0;
+  }
+
   &::after {
-    content: "";
-    z-index: 1000;
-    opacity: 0%;
-
-    position: absolute;
-    top: 50%;
-    width: 3rem;
-    height: 3rem;
-    right: 1px;
-    background: transparent;
-    background-image: url('/assets/arrow.svg');
-    background-size: contain;
-    border: none;
-    color: transparent;
-    
     right: 0;
-
-    transition: opacity 0.3s ease-out;
   }
 
   & .slide-button {
