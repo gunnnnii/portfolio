@@ -36,7 +36,9 @@ const Heading = styled.h1`
   font-size: ${({ fontSize = 4 }) => fontSize}rem;
   word-break: break-word;
   @media (max-width: ${breakpoints.small}px) {
-    font-size: ${({ fontSizeSmall = 6 }) => fontSizeSmall}rem;
+    & {
+      font-size: ${({ fontSizeSmall = 1 }) => fontSizeSmall}rem;
+    }
   }
   cursor: pointer;
 `
@@ -83,7 +85,7 @@ const Layout = ({ title, heading = "gunnar ingi", location, children }) => {
             {location ? (
               <>
                 <Navigation pages={pages} />
-                <Heading fontSize={3}>
+                <Heading fontSizeSmall={4}>
                   {heading || location.pathname.replace("/", "")}
                 </Heading>
               </>

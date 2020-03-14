@@ -19,7 +19,17 @@ const CardsStyle = styled.ul`
   grid-auto-rows: 1fr;
   grid-gap: ${gutter};
 
+  @media (max-width: ${breakpoints.medium}px) {
+    & {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   @media (max-width: ${breakpoints.small}px) {
+    & {
+      grid-template-columns: 1fr;
+      margin: auto calc(${gutter} * -3);
+    }
     & > * {
       margin: 0 calc(${gutter} / 2);
       flex: 1 0 75%;
@@ -60,10 +70,6 @@ const CardContainer = styled.li`
   &:hover h2 {
     background-position: 0 0;
   }
-
-  @media (max-width: ${breakpoints.small}px) {
-    scroll-snap-align: center;
-  }
 `
 
 const CardHeading = styled.h2`
@@ -89,10 +95,6 @@ const Wrapper = styled.div`
     margin: 0 calc(${gutter} * -3);
     width: ${props => props.screenWidth}px;
   }
-`
-
-const Spacer = styled.span`
-  flex: 0 0 3rem;
 `
 
 const ImageContainer = styled.div`
@@ -174,7 +176,6 @@ const Cards = ({ cards }) => {
         {cards.map((card) => (
           <Card key={card.slug} content={card} />
         ))}
-        {breakpoints.small >= width ? <Spacer aria-hidden="true" /> : null}
       </CardsStyle>
     </Wrapper>
   )
