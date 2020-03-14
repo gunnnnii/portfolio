@@ -75,6 +75,7 @@ const Layout = ({ title, heading = "gunnar ingi", location, children }) => {
       path => !path.match(/\/.+\/.+/) && !path.includes("404") && path !== "/"
     )
     .map(page => page.replace(/\//g, ""))
+  
 
   return (
     <>
@@ -82,9 +83,9 @@ const Layout = ({ title, heading = "gunnar ingi", location, children }) => {
       <Grid>
         <Header>
           <Flex>
-            {location ? (
+            {location.pathname !== "/" ? (
               <>
-                <Navigation pages={pages} />
+                <Navigation location={location} pages={pages} />
                 <Heading fontSizeSmall={4}>
                   {heading || location.pathname.replace("/", "")}
                 </Heading>

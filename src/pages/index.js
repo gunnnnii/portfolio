@@ -17,7 +17,7 @@ const LinkList = styled.ul`
 `
 
 const IndexPage = () => (
-  <Layout title="Home">
+  <>
     <IndexStyle />
     <LinkList>
       <li>
@@ -36,7 +36,7 @@ const IndexPage = () => (
         </Link>
       </li>
     </LinkList>
-  </Layout>
+  </>
 )
 
 export default IndexPage

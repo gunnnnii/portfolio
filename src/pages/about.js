@@ -63,7 +63,7 @@ const Heading = styled.h2`
 
 const About = ({ location }) => {
   return (
-    <Layout title="About Me" heading="about me" location={location}>
+    <>
       <Section>
         <Heading>Hey there, I'm Gunnar.</Heading>
         <p>
@@ -169,7 +169,7 @@ const About = ({ location }) => {
 
         <LinkExt href="mailto:gis20@hi.is">gis20@hi.is</LinkExt>
       </Section>
-    </Layout>
+    </>
   )
 }
 

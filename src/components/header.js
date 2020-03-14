@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 import styled from "styled-components"
 import { Link } from "./Link"
 import { HorizontalList } from "./horizontalList"
@@ -13,64 +13,86 @@ const HeaderContainer = styled.header`
 
 const LinkList = styled(HorizontalList)`
   margin: 0;
-
-  & > li,
-  & > li:first-child,
-  & > li:last-child {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
 `
 
 const HeaderLink = styled(Link)`
   display: inline-block;
-  transition: all 0.2s ease-out;
+  transition: width 0.2s ease-out;
+`
 
-  @media (max-width: ${breakpoints.small}px) {
-    & {
-      overflow: hidden;
-      text-overflow: "";
-      max-width: 1ch;
-    }
+const HeaderLi = styled.li`
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-overflow: "";
 
-    &:hover {
-      max-width: initial;
-    }
+  transition: flex-basis 0.2s ease-out;
+  & > .active {
+    background-position: 0 0;
   }
+`
+
+const HeaderLinkList = styled(LinkList)`
+  display: inline-flex;
 `
 
 export const Header = ({ children }) => (
   <HeaderContainer>{children}</HeaderContainer>
 )
 
-export const Navigation = ({ pages }) => (
+const NavbarLink = ({active = false, partiallyActive = true, page, to}) => {
+  const linkRef = useRef(null)
+  const liRef = useRef(null)
+
+  useEffect(() => {
+    if (liRef.current) {
+      const li = liRef.current;
+      const link = linkRef.current;
+
+      const isSmall = window && window.innerWidth <= breakpoints.small
+      if (isSmall) {
+        if (active) {
+          li.style.flexBasis = `${link.scrollWidth}px`;
+        } else {
+          li.style.flexBasis = '1.4ch';
+        }
+      }
+    }
+  }, [active])
+
+  return (
+    <HeaderLi
+      ref={liRef}
+      active={active}
+    >
+      <HeaderLink
+        ref={linkRef}
+        to={`/${to || page}`}
+        activeClassName="active"
+        partiallyActive={partiallyActive}
+      >
+        {page}
+      </HeaderLink>
+    </HeaderLi>
+  )
+}
+
+export const Navigation = ({ location: {pathname}, pages }) => (
   <nav>
-    <LinkList>
-      <li style={{ transition: "all 0.s ease-out"}}>
-        <HeaderLink
-          to="/"
-          activeStyle={{
-            backgroundPosition: "0 0",
-            maxWidth: "initial"
-          }}
-        >
-          home
-        </HeaderLink>
-      </li>
+    <HeaderLinkList>
+      <NavbarLink 
+        to={"/"}
+        page="home"
+        partiallyActive={false}
+      />
       {pages.map(page => (
-        <li key={page}>
-          <HeaderLink
-            to={`/${page}`}
-            activeStyle={{
-              backgroundPosition: "0 0",
-              maxWidth: "initial"
-            }}
-            partiallyActive
-          >
-            {page}
-          </HeaderLink>
-        </li>
+        <NavbarLink 
+          key={page}
+          active={pathname.split("/")[1] === page}
+          page={page}
+        />
       ))}
-    </LinkList>
+    </HeaderLinkList>
   </nav>
 )

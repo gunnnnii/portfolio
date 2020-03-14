@@ -37,7 +37,7 @@ const Other = ({ location, data }) => {
   })
 
   return (
-    <Layout title="Other" heading="other" location={location}>
+    <>
       <Section>
         <p>I also do things that are not related to programming.</p>
         <p>
@@ -54,7 +54,7 @@ const Other = ({ location, data }) => {
         <p>Here are a few good moments I've captured</p>
         <Carousel images={images} />
       </Section>
-    </Layout>
+    </>
   )
 }
 

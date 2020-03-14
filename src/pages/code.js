@@ -99,7 +99,7 @@ const Wrapper = styled.div`
 
 const ImageContainer = styled.div`
   max-width: 100%;
-  height: min(4rem, 10vh);
+  min-height: 6rem;
   margin: 0.5rem 0;
 
   border-bottom: calc(${gutter} / 2) solid ${props => props.theme.text};
@@ -116,6 +116,7 @@ const ImageContainer = styled.div`
 
   @media (max-width: ${breakpoints.small}px) {
     flex-basis: 8rem;
+    min-height: 20rem;
   }
 `
 
@@ -139,8 +140,8 @@ const CardFooter = styled.div`
 
 const CardIconContainer = styled.div`
   & > svg {
-  height: 1rem;
-  width: 1rem;
+  height: 1em;
+  width: 1em;
   margin: 0 0.1rem;
   }
 `
@@ -195,9 +196,9 @@ const Code = ({ location, data }) => {
   })
 
   return (
-    <Layout title="Code" heading="code" location={location}>
+    <>
       <Cards cards={projects} />
-    </Layout>
+    </>
   )
 }
 export default Code

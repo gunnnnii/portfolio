@@ -11,10 +11,10 @@ const ProjectPost = ({ location, data }) => {
   } = data.markdownRemark
 
   return (
-    <Layout title={title} heading={title} location={location}>
+    <>
       <Markdown tree={htmlAst} />
       <LinkExt href={github}>Have a look at the project on Github</LinkExt>
-    </Layout>
+    </>
   )
 }
 

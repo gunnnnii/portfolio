@@ -62,6 +62,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     background: ${props => props.theme.background};
     background: ${props => props.theme.backgroundGradient};
+    background-size: 100vw 100vh;
     color: ${props => props.theme.text};
   }
 `
