@@ -4,6 +4,7 @@ title: hopon
 desc: I created an application to make ride sharing easy using Java Spring, ReactJS and LeafletJS
 thumbnail: "../images/hopon_search.png"
 github: https://github.com/HBV501G-group19
+tech: "react springboot leaflet"
 ---
 
 I wrote a ridesharing webapp to enable users to easily search for free rides and plan their carpool together. This was done for my Universities Software Project 1 class. The app features a way to search for convinient rides that are departing from and to points close to the points the user inputs.

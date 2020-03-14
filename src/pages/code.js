@@ -5,8 +5,10 @@ import Layout from "../components/layout"
 import { FaGithub } from "react-icons/fa"
 import styled from "styled-components"
 import { LinkExt } from "../components/Link"
-import { gutter, breakpoints } from "../style_constants"
+import { gutter, breakpoints, colors } from "../style_constants"
 import { useWindowWidth } from "../hooks/useWindowWidth"
+
+import TechIcon from '../components/icons/TechIcon'
 
 const CardsStyle = styled.ul`
   list-style: none;
@@ -14,6 +16,7 @@ const CardsStyle = styled.ul`
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 1fr;
   grid-gap: ${gutter};
 
   @media (max-width: ${breakpoints.small}px) {
@@ -34,6 +37,7 @@ const CardContainer = styled.li`
 
   color: ${props => props.theme.text};
   background: ${props => props.theme.backdrop};
+  background: ${props => props.theme.cardGradient};
 
   & section {
     display: flex;
@@ -125,6 +129,20 @@ const CardContent = ({ title, thumbnail, description }) => (
   </section>
 )
 
+const CardFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: ${gutter};
+`
+
+const CardIconContainer = styled.div`
+  & > svg {
+  height: 1rem;
+  width: 1rem;
+  margin: 0 0.1rem;
+  }
+`
+
 const Card = ({ content }) => (
   <CardContainer>
     <Link to={content.slug}>
@@ -134,9 +152,16 @@ const Card = ({ content }) => (
         description={content.desc}
       />
     </Link>
-    <LinkExt className="__github" href={content.github}>
-      <FaGithub />
-    </LinkExt>
+    <CardFooter>
+      <CardIconContainer>
+        {content.tech && content.tech.split(" ").map(tech => {
+          return <TechIcon key={`${tech}-${content.slug}`}icon={tech} fill={colors.night.text} />
+        })}
+      </CardIconContainer>
+      <LinkExt className="__github" href={content.github}>
+        <FaGithub />
+      </LinkExt>
+    </CardFooter>
   </CardContainer>
 )
 
@@ -146,7 +171,7 @@ const Cards = ({ cards }) => {
   return (
     <Wrapper screenWidth={width}>
       <CardsStyle ref={containerRef}>
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <Card key={card.slug} content={card} />
         ))}
         {breakpoints.small >= width ? <Spacer aria-hidden="true" /> : null}
@@ -189,6 +214,7 @@ export const query = graphql`
             github
             name
             title
+            tech
             thumbnail {
               childImageSharp {
                 fluid {
