@@ -27,7 +27,7 @@ const LinkList = styled(HorizontalList)`
 
 const HeaderLink = styled(Link)`
   display: inline-block;
-  transition: width 0.2s ease-out;
+  transition: background-position 0.2s, width 0.2s ease-out;
 `
 
 const HeaderLi = styled.li`
