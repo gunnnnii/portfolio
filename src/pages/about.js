@@ -1,5 +1,4 @@
 import React from "react"
-import Layout from "../components/layout"
 import styled from "styled-components"
 import { gutter, breakpoints } from "../style_constants"
 import { LinkExt } from "../components/Link"

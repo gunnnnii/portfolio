@@ -4,7 +4,6 @@ import { graphql } from 'gatsby'
 
 import { gutter } from "../style_constants"
 
-import Layout from "../components/layout"
 import { LinkExt } from "../components/Link"
 import {Carousel} from "../components/carousel"
 

@@ -1,7 +1,6 @@
 import React, { useRef } from "react"
 import { Link, graphql } from "gatsby"
 
-import Layout from "../components/layout"
 import { FaGithub } from "react-icons/fa"
 import styled from "styled-components"
 import { LinkExt } from "../components/Link"
