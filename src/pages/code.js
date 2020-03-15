@@ -37,6 +37,7 @@ const CardsStyle = styled.ul`
 `
 
 const CardContainer = styled.li`
+  transition: transform 0.2s ease-out;
   background: white;
   height: 100%;
 
@@ -47,6 +48,7 @@ const CardContainer = styled.li`
   color: ${props => props.theme.text};
   background: ${props => props.theme.backdrop};
   background: ${props => props.theme.cardGradient};
+
 
   & section {
     display: flex;
@@ -68,6 +70,10 @@ const CardContainer = styled.li`
 
   &:hover h2 {
     background-position: 0 0;
+  }
+
+  &:hover {
+    transform: scale3d(1.05, 1.05, 1.1) translateY(-10px);
   }
 `
 
