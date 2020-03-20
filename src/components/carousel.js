@@ -130,13 +130,13 @@ const SlideContainer = styled.li`
   }
 `
 
-const Slide = ({ image }) => {
+const Slide = ({ index, image }) => {
   return (
     <SlideContainer
       id={image.id}
       key={image.id}
     >
-      <img src={image.src} alt={image.description} />
+      <img loading={index > 2 ? 'lazy' : 'eager'} src={image.src} alt={image.description} />
     </SlideContainer>
   )
 }
@@ -200,8 +200,9 @@ export const Carousel = ({ images }) => {
         <button className="slide-button prev" onClick={prev}>
           prev
         </button>
-        {images.map(image => (
+        {images.map((image, idx) => (
           <Slide
+            index={idx}
             key={image.id}
             image={image}
             scroll={scroll}
