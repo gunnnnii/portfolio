@@ -1,6 +1,6 @@
 import React from 'react'
 export default ({fill}) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" focusable="false">
+    <svg aria-labelledby="title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" focusable="false">
         <title>
           Gatsby
         </title>

@@ -163,7 +163,7 @@ const Card = ({ content }) => (
     <CardFooter>
       <CardIconContainer>
         {content.tech && content.tech.split(" ").map(tech => {
-          return <TechIcon key={`${tech}-${content.slug}`}icon={tech} fill={colors.night.text} />
+          return <TechIcon key={`${tech}-${content.slug}`} icon={tech} fill={colors.night.text} />
         })}
       </CardIconContainer>
       <LinkExt className="__github" href={content.github}>

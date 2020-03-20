@@ -1,7 +1,8 @@
 import React from 'react'
 
 export default ({fill}) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <svg aria-labelledby="title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <title id="title">React</title>
         <g transform="matrix(.05696 0 0 .05696 .647744 2.43826)" fill="none" fillRule="evenodd">
             <circle r="50.167" cy="237.628" cx="269.529" fill={fill}/>
             <g stroke={fill} strokeWidth="24">
