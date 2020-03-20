@@ -20,7 +20,7 @@ const Section = styled.section`
   }
 `
 
-const Other = ({ location, data }) => {
+const Other = ({ data }) => {
   const {
     allFile: { edges },
   } = data
@@ -28,6 +28,7 @@ const Other = ({ location, data }) => {
   const images = edges.map(edge => {
     const img = edge.node.childMarkdownRemark.frontmatter.thumbnail
     const description = edge.node.childMarkdownRemark.frontmatter.desc
+
     return {
       description,
       id: img.childImageSharp.id,
@@ -70,6 +71,7 @@ export const query = graphql`
                 childImageSharp {
                   fluid(maxHeight: 800, quality: 95) {
                     src
+                    sizes
                   }
                   id
                 }
